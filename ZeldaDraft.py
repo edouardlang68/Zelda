@@ -62,14 +62,37 @@ def run_game():
     p1.draw(win=win)
     s1.draw(win=win)
 
-
-
-
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
 
+        # Gestion des touches enfoncées
+        keys = pygame.key.get_pressed()
+
+        # Gérer les mouvements du joueur
+        if keys[pygame.K_LEFT]:
+            p1.move_towards(p1.x - p1.speed, p1.y)
+            print('Left')
+        elif keys[pygame.K_RIGHT]:
+            p1.move_towards(p1.x + p1.speed, p1.y)
+            print('Right')
+
+
+        if keys[pygame.K_UP]:
+            p1.move_towards(p1.x, p1.y - p1.speed)
+            print('Up')
+        if keys[pygame.K_DOWN]:
+            p1.move_towards(p1.x, p1.y + p1.speed)
+            print('Down')
+
+        # Mise à jour de la fenêtre de jeu
+        win.blit(background, (0, 0))
+        p1.draw_update(win=win)
+        e1.draw_update(win=win)
+
+        # Contrôle du FPS
+        pygame.time.Clock().tick(60)
         pygame.display.update()
 
 
